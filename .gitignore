@@ -1,14 +1,14 @@
-/target/
+*/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+*.apt_generated
+*.classpath
+*.factorypath
+*.project
+*.settings
+*.springBeans
+*.sts4-cache
 
 
 # Created by https://www.gitignore.io/api/git,java,maven,eclipse,windows
@@ -28,7 +28,7 @@ local.properties
 .recommenders
 
 # External tool builders
-.externalToolBuilders/
+*.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
 *.launch
@@ -37,28 +37,28 @@ local.properties
 *.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
-.cproject
+*.cproject
 
 # CDT- autotools
-.autotools
+*.autotools
 
 # Java annotation processor (APT)
-.factorypath
+*.factorypath
 
 # PDT-specific (PHP Development Tools)
-.buildpath
+*.buildpath
 
 # sbteclipse plugin
-.target
+*.target
 
 # Tern plugin
-.tern-project
+*.tern-project
 
 # TeXlipse plugin
-.texlipse
+*.texlipse
 
 # STS (Spring Tool Suite)
-.springBeans
+*.springBeans
 
 # Code Recommenders
 .recommenders/
@@ -67,19 +67,19 @@ local.properties
 .apt_generated/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
+*.cache-main
+*.scala_dependencies
+*.worksheet
 
 ### Eclipse Patch ###
 # Eclipse Core
-.project
+*.project
 
 # JDT-specific (Eclipse Java Development Tools)
-.classpath
+*.classpath
 
 # Annotation Processing
-.apt_generated
+*.apt_generated
 
 .sts4-cache/
 
@@ -124,7 +124,7 @@ local.properties
 hs_err_pid*
 
 ### Maven ###
-target/
+*/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -161,41 +161,41 @@ $RECYCLE.BIN/
 *.lnk
 
 # User-specific stuff
-.idea
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+*.idea
+*.idea/**/workspace.xml
+*.idea/**/tasks.xml
+*.idea/**/usage.statistics.xml
+*.idea/**/dictionaries
+*.idea/**/shelf
 
 # Generated files
-.idea/**/contentModel.xml
+*.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+*.idea/**/dataSources/
+*.idea/**/dataSources.ids
+*.idea/**/dataSources.local.xml
+*.idea/**/sqlDataSources.xml
+*.idea/**/dynamic.xml
+*.idea/**/uiDesigner.xml
+*.idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+*.idea/**/gradle.xml
+*.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/artifacts
-# .idea/compiler.xml
-# .idea/jarRepositories.xml
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
-# *.iml
-# *.ipr
+.idea/artifacts
+*.idea/compiler.xml
+*.idea/jarRepositories.xml
+*.idea/modules.xml
+*.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
 
 # CMake
 cmake-build-*/
@@ -210,13 +210,13 @@ cmake-build-*/
 out/
 
 # mpeltonen/sbt-idea plugin
-.idea_modules/
+*.idea_modules/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+*.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -225,7 +225,7 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-.idea/httpRequests
+*.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
-.idea/caches/build_file_checksums.ser
+*.idea/caches/build_file_checksums.ser
