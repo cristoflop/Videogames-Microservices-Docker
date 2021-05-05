@@ -1,11 +1,14 @@
 package com.formation.videogames.planner.domain;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashMap;
 import java.util.Map;
 
-@Document(collation = "videogames")
+@Document(collection = "games")
 public class Game {
 
     @Id
@@ -21,11 +24,14 @@ public class Game {
         this.id = id;
     }
 
-    public Map<String, Object> getData() {
+    @JsonAnyGetter
+    public Map<String, Object> get() {
         return data;
     }
 
-    public void setData(Map<String, Object> data) {
-        this.data = data;
+    @JsonAnySetter
+    public void add(String key, Object value) {
+        if (this.data == null) data = new HashMap<>();
+        this.data.put(key, value);
     }
 }
