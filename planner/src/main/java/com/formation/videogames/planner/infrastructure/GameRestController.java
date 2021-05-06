@@ -1,7 +1,8 @@
 package com.formation.videogames.planner.infrastructure;
 
 import com.formation.videogames.planner.application.GameService;
-import com.formation.videogames.planner.domain.Game;
+import com.formation.videogames.planner.application.dto.GameDto;
+import com.formation.videogames.planner.application.dto.NewGameDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,21 @@ public class GameRestController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Game>> findAll() {
-        List<Game> games = this.gameService.findAll();
-        return new ResponseEntity<List<Game>>(games, HttpStatus.OK);
+    public ResponseEntity<List<GameDto>> findAll() {
+        List<GameDto> games = this.gameService.findAll();
+        return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> save(@RequestBody Game game) {
-        String savedGameId = this.gameService.save(game);
-        return new ResponseEntity<>(savedGameId, HttpStatus.OK);
+    public ResponseEntity<String> save(@RequestBody NewGameDto game) {
+        String id = this.gameService.save(game);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+        this.gameService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
