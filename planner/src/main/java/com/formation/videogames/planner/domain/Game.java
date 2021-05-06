@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,12 @@ public class Game {
     @Id
     private String id;
 
+    @Field(name = "data")
     private Map<String, Object> data;
+
+    public Game(Map<String, Object> data) {
+        this.data = data;
+    }
 
     public String getId() {
         return id;
@@ -34,4 +40,5 @@ public class Game {
         if (this.data == null) data = new HashMap<>();
         this.data.put(key, value);
     }
+
 }
