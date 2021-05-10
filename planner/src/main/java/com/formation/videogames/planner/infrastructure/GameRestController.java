@@ -22,13 +22,20 @@ public class GameRestController {
     @GetMapping("/")
     public ResponseEntity<List<GameDto>> findAll() {
         List<GameDto> games = this.gameService.findAll();
-        return new ResponseEntity<>(games, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(games);
     }
 
     @PostMapping("/")
     public ResponseEntity<String> save(@RequestBody NewGameDto game) {
         String id = this.gameService.save(game);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GameDto> findOne(@PathVariable("id") String id) {
+        GameDto game = this.gameService
+                .findOne(id);
+        return ResponseEntity.status(HttpStatus.OK).body(game);
     }
 
     @DeleteMapping("/{id}")
