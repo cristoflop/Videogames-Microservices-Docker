@@ -4,6 +4,7 @@ import com.formation.videogames.planner.application.dto.GameDto;
 import com.formation.videogames.planner.application.dto.NewGameDto;
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
+import com.formation.videogames.planner.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,22 +31,35 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameDto> findAll() {
-        return this.gameRepository.findAll()
+        return this.gameRepository
+                .findAll()
                 .stream()
                 .map(item -> this.mapToGameDto(item))
                 .collect(Collectors.toList());
     }
 
     @Override
+    public GameDto findOne(String id) {
+        Game game = this.gameRepository
+                .findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        return this.mapToGameDto(game);
+    }
+
+    @Override
     public String save(NewGameDto game) {
         Game gameToSave = new Game(game.get());
-        Game savedGame = this.gameRepository.save(gameToSave);
-        return savedGame.getId();
+        return this.gameRepository
+                .save(gameToSave)
+                .getId();
     }
 
     @Override
     public void delete(String id) {
-        this.gameRepository.deleteById(id);
+        Game game = this.gameRepository
+                .findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        this.gameRepository.delete(game);
     }
 
     private GameDto mapToGameDto(Game game) {

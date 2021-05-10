@@ -11,6 +11,8 @@ public interface GameService {
 
     List<GameDto> findAll();
 
+    GameDto findOne(String id);
+
     String save(NewGameDto game);
 
     void delete(String id);
