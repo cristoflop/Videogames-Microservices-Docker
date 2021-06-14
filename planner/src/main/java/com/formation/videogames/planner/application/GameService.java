@@ -16,5 +16,7 @@ public interface GameService {
     String save(NewGameDto game);
 
     void delete(String id);
+    
+    List<GameDto> findByName(String name);
 
 }

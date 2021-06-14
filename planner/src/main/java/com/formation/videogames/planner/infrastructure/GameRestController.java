@@ -10,38 +10,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/games")
+@RequestMapping("/api")
 public class GameRestController {
 
-    private GameService gameService;
+	private GameService gameService;
 
-    public GameRestController(GameService gameService) {
-        this.gameService = gameService;
-    }
+	public GameRestController(GameService gameService) {
+		this.gameService = gameService;
+	}
 
-    @GetMapping("/")
-    public ResponseEntity<List<GameDto>> findAll() {
-        List<GameDto> games = this.gameService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(games);
-    }
+	@GetMapping("/games")
+	public ResponseEntity<List<GameDto>> findAll(@RequestParam(required = false) String name) {
+		List<GameDto> games;
+		if (name != null) {
+			games = this.gameService.findByName(name);
+		} else {
+			games = this.gameService.findAll();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(games);
+	}
 
-    @PostMapping("/")
-    public ResponseEntity<String> save(@RequestBody NewGameDto game) {
-        String id = this.gameService.save(game);
-        return ResponseEntity.status(HttpStatus.CREATED).body(id);
-    }
+	@PostMapping("/games")
+	public ResponseEntity<String> save(@RequestBody NewGameDto game) {
+		String id = this.gameService.save(game);
+		return ResponseEntity.status(HttpStatus.CREATED).body(id);
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GameDto> findOne(@PathVariable("id") String id) {
-        GameDto game = this.gameService
-                .findOne(id);
-        return ResponseEntity.status(HttpStatus.OK).body(game);
-    }
+	@GetMapping("/games/{id}")
+	public ResponseEntity<GameDto> findOne(@PathVariable("id") String id) {
+		GameDto game = this.gameService.findOne(id);
+		return ResponseEntity.status(HttpStatus.OK).body(game);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
-        this.gameService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+	@DeleteMapping("/games/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+		this.gameService.delete(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 }
