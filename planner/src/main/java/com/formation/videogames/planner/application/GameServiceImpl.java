@@ -38,7 +38,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public List<GameDto> findAll() {
-		return this.gameRepository.findAll().stream().map(item -> this.mapToGameDto(item)).collect(Collectors.toList());
+		return this.gameRepository.findAll().stream().map(this::mapToGameDto).collect(Collectors.toList());
 	}
 
 	@Override
