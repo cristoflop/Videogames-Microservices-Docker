@@ -4,6 +4,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.formation.videogames.planner.application.dto.NewGameDto;
+
+@Component
 public class NewGameResponsePublisher {
 
 	private KafkaTemplate<String, String> kafkaTemplate;
@@ -15,7 +18,7 @@ public class NewGameResponsePublisher {
 	}
 
 	@Scheduled(fixedRate = 1000)
-	public void sendMessage() {
+	public void sendMessage(NewGameDto game) {
 
 		String data = "Data " + numData++;
 
