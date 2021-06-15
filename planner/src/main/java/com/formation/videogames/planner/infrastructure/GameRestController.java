@@ -57,5 +57,10 @@ public class GameRestController {
 	public void prueba1() {
 		this.logger.debug("Mensaje de prueba");
 	}
+	
+	@GetMapping("/prueba2")
+	public ResponseEntity<Void> prueba2() {
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }
