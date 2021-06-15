@@ -1,5 +1,6 @@
 package com.formation.videogames.planner.application;
 
+import com.formation.videogames.planner.amqp.NewGameResponsePublisher;
 import com.formation.videogames.planner.application.dto.GameDto;
 import com.formation.videogames.planner.application.dto.NewGameDto;
 import com.formation.videogames.planner.data.GameRepository;
@@ -23,9 +24,13 @@ public class GameServiceImpl implements GameService {
 
 	private MongoTemplate mongoTemplate;
 
-	public GameServiceImpl(GameRepository gameRepository, MongoTemplate mongoTemplate) {
+	private NewGameResponsePublisher newGameResponsePublisher;
+
+	public GameServiceImpl(GameRepository gameRepository, MongoTemplate mongoTemplate,
+			NewGameResponsePublisher newGameResponsePublisher) {
 		this.gameRepository = gameRepository;
 		this.mongoTemplate = mongoTemplate;
+		this.newGameResponsePublisher = newGameResponsePublisher;
 	}
 
 	public GameRepository getGameRepository() {
@@ -50,7 +55,9 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public String save(NewGameDto game) {
 		Game gameToSave = new Game(game.get());
-		return this.gameRepository.save(gameToSave).getId();
+		Game savedGame = this.gameRepository.save(gameToSave);
+		this.newGameResponsePublisher.sendMessage(this.mapToGameDto(savedGame));
+		return savedGame.getId();
 	}
 
 	@Override
