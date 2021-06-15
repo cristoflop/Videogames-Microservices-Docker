@@ -3,6 +3,9 @@ package com.formation.videogames.planner.infrastructure;
 import com.formation.videogames.planner.application.GameService;
 import com.formation.videogames.planner.application.dto.GameDto;
 import com.formation.videogames.planner.application.dto.NewGameDto;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,8 @@ import java.util.List;
 public class GameRestController {
 
 	private GameService gameService;
+
+	private Logger logger = LoggerFactory.getLogger(GameRestController.class);
 
 	public GameRestController(GameService gameService) {
 		this.gameService = gameService;
@@ -46,6 +51,11 @@ public class GameRestController {
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		this.gameService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("/prueba1")
+	public void prueba1() {
+		this.logger.debug("Mensaje de prueba");
 	}
 
 }
