@@ -48,4 +48,9 @@ public class GameRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@GetMapping("/prueba1")
+	public ResponseEntity<Void> prueba1() {
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
 }
