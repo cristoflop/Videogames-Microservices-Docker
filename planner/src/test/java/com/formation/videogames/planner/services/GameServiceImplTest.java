@@ -1,6 +1,7 @@
 package com.formation.videogames.planner.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
+import com.formation.videogames.planner.exception.ResourceNotFoundException;
 import com.formation.videogames.planner.services.dto.GameDto;
 import com.formation.videogames.planner.services.dto.NewGameDto;
 import com.formation.videogames.planner.services.dto.NewGameDtoBuilder;
@@ -48,14 +50,16 @@ class GameServiceImplTest {
 	}
 
 	@Test
-	void testGivenAttributeNameAndValueWhenSearchForAnSpecificGameTheReturnTheGame() {
-		NewGameDto newGame = new NewGameDtoBuilder().addAttribute("name", "Minecraft")
-				.addAttribute("description", "Juego de aventuras").build();
-
+	void testGivenGameNameWhenSearchForAnSpecificGameThenReturnTheGame() {
+		NewGameDto newGame = new NewGameDtoBuilder().setValues("Minecraft", "Juego de cubos").build();
 		this.gameService.save(newGame);
-		List<GameDto> games = this.gameService.findByAttributeValueInData("name", "Minecraft");
-		assertEquals("Minecraft", games.get(0).getGameData().get("name"));
+		GameDto game = this.gameService.findByName("Minecraft");
+		assertEquals("Minecraft", game.getName());
+	}
 
+	@Test
+	void testGivenGameNameWhenSearchForAnSpecificGameThenEspectExceptionIfNotExist() {
+		assertThrows(ResourceNotFoundException.class, () -> this.gameService.findByName("Minecraft"));
 	}
 
 }

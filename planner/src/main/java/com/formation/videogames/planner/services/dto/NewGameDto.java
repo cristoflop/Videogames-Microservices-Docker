@@ -1,24 +1,43 @@
 package com.formation.videogames.planner.services.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class NewGameDto {
 
-    private Map<String, Object> data;
+	private String name;
 
-    @JsonAnyGetter
-    public Map<String, Object> get() {
-        return data;
-    }
+	private String description;
 
-    @JsonAnySetter
-    public void add(String key, Object value) {
-        if (this.data == null) data = new HashMap<>();
-        this.data.put(key, value);
-    }
+	private List<String> tags;
+
+	public NewGameDto(String name, String description, List<String> tags) {
+		this.name = name;
+		this.description = description;
+		this.tags = tags;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 }

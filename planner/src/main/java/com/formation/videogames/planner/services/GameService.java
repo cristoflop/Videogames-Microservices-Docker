@@ -20,8 +20,4 @@ public interface GameService {
 
 	GameDto findByName(String name);
 
-	List<GameDto> findByAttributeValueInData(String key, Object value);
-
-	List<GameDto> findByAttributeExistingInData(String key);
-
 }

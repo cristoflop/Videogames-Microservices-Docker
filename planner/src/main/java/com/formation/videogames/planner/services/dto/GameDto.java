@@ -1,28 +1,54 @@
 package com.formation.videogames.planner.services.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class GameDto {
 
 	private String id;
 
-	private Map<String, Object> gameData;
+	private String name;
 
-	public GameDto(String id, Map<String, Object> gameData) {
+	private String description;
+
+	private List<String> tags;
+
+	public GameDto(String id, String name, String description, List<String> tags) {
 		this.id = id;
-		this.gameData = gameData;
+		this.name = name;
+		this.description = description;
+		this.tags = tags;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public Map<String, Object> getGameData() {
-		return gameData;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return this.gameData.get("name").toString();
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
 }

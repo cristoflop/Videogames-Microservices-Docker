@@ -1,44 +1,62 @@
 package com.formation.videogames.planner.domain;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Document(collection = "games")
 public class Game {
 
-    @Id
-    private String id;
+	@Id
+	private String id;
 
-    @Field(name = "data")
-    private Map<String, Object> data;
+	@Field(name = "name")
+	private String name;
 
-    public Game(Map<String, Object> data) {
-        this.data = data;
-    }
+	@Field(name = "description")
+	private String description;
 
-    public String getId() {
-        return id;
-    }
+	@Field(name = "tags")
+	private List<String> tags;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public Game(String name, String description, List<String> tags) {
+		this.name = name;
+		this.description = description;
+		this.tags = tags;
+	}
 
-    @JsonAnyGetter
-    public Map<String, Object> get() {
-        return data;
-    }
+	public String getId() {
+		return id;
+	}
 
-    @JsonAnySetter
-    public void add(String key, Object value) {
-        if (this.data == null) data = new HashMap<>();
-        this.data.put(key, value);
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 }

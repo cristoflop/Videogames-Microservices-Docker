@@ -1,25 +1,35 @@
 package com.formation.videogames.planner.services.dto;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class NewGameDtoBuilder {
 
-	private Map<String, Object> data;
+	private String name;
+
+	private String description;
+
+	private List<String> tags;
 
 	public NewGameDtoBuilder() {
-		this.data = new HashMap<>();
+		this.tags = new ArrayList<>();
 	}
 
-	public NewGameDtoBuilder addAttribute(String key, Object value) {
-		this.data.put(key, value);
+	public NewGameDtoBuilder setValues(String name, String description, String... tags) {
+		this.name = name;
+		this.description = description;
+		this.tags = Arrays.asList(tags);
+		return this;
+	}
+
+	public NewGameDtoBuilder setDescription(String name) {
+		this.name = name;
 		return this;
 	}
 
 	public NewGameDto build() {
-		NewGameDto result = new NewGameDto();
-		this.data.forEach((key, value) -> result.add(key, value));
-		return result;
+		return new NewGameDto(this.name, this.description, this.tags);
 	}
 
 }
