@@ -1,5 +1,6 @@
 package com.formation.videogames.planner.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,8 @@ public class GameRestController {
 	public ResponseEntity<List<GameDto>> findAll(@RequestParam(required = false) String name) {
 		List<GameDto> games;
 		if (name != null) {
-			games = this.gameService.findByName(name);
+			games = new ArrayList<>();
+			games.add(this.gameService.findByName(name));
 		} else {
 			games = this.gameService.findAll();
 		}
