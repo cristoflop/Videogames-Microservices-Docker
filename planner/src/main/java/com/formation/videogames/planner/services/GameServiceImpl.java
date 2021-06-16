@@ -55,6 +55,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public String save(NewGameDto game) {
 		Game gameToSave = new Game(game.get());
+		
 		Game savedGame = this.gameRepository.save(gameToSave);
 		this.newGameResponsePublisher.sendMessage(this.mapToGameDto(savedGame));
 		return savedGame.getId();
@@ -67,16 +68,28 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public List<GameDto> findByName(String name) {
+	public GameDto findByName(String name) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data.name").is(name));
+		Game game = this.mongoTemplate.findOne(query, Game.class);
+		if (game == null)
+			throw new ResourceNotFoundException();
+
+		return this.mapToGameDto(game);
+	}
+
+	@Override
+	public List<GameDto> findByAttributeValueInData(String key, Object value) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("data." + key).is(value));
 		return this.mongoTemplate.find(query, Game.class).stream().map(this::mapToGameDto).collect(Collectors.toList());
 	}
 
 	@Override
-	public List<GameDto> findByAttributeInData(String key, String value) {
-
-		return null;
+	public List<GameDto> findByAttributeExistingInData(String key) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("data." + key));
+		return this.mongoTemplate.find(query, Game.class).stream().map(this::mapToGameDto).collect(Collectors.toList());
 	}
 
 	private GameDto mapToGameDto(Game game) {

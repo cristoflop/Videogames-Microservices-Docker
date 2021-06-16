@@ -10,16 +10,18 @@ import java.util.List;
 @Service
 public interface GameService {
 
-    List<GameDto> findAll();
+	List<GameDto> findAll();
 
-    GameDto findOne(String id);
+	GameDto findOne(String id);
 
-    String save(NewGameDto game);
+	String save(NewGameDto game);
 
-    void delete(String id);
-    
-    List<GameDto> findByName(String name);
+	void delete(String id);
 
-	List<GameDto> findByAttributeInData(String key, String value);
+	GameDto findByName(String name);
+
+	List<GameDto> findByAttributeValueInData(String key, Object value);
+
+	List<GameDto> findByAttributeExistingInData(String key);
 
 }
