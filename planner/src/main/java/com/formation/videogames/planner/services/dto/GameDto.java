@@ -1,4 +1,4 @@
-package com.formation.videogames.planner.application.dto;
+package com.formation.videogames.planner.services.dto;
 
 import java.util.Map;
 

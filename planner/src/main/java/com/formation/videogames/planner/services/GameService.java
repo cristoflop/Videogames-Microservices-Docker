@@ -1,8 +1,9 @@
-package com.formation.videogames.planner.application;
+package com.formation.videogames.planner.services;
 
-import com.formation.videogames.planner.application.dto.GameDto;
-import com.formation.videogames.planner.application.dto.NewGameDto;
 import org.springframework.stereotype.Service;
+
+import com.formation.videogames.planner.services.dto.GameDto;
+import com.formation.videogames.planner.services.dto.NewGameDto;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface GameService {
     void delete(String id);
     
     List<GameDto> findByName(String name);
+
+	List<GameDto> findByAttributeInData(String key, String value);
 
 }

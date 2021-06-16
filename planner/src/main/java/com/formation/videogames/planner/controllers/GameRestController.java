@@ -1,24 +1,27 @@
-package com.formation.videogames.planner.infrastructure;
-
-import com.formation.videogames.planner.application.GameService;
-import com.formation.videogames.planner.application.dto.GameDto;
-import com.formation.videogames.planner.application.dto.NewGameDto;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+package com.formation.videogames.planner.controllers;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.formation.videogames.planner.services.GameService;
+import com.formation.videogames.planner.services.dto.GameDto;
+import com.formation.videogames.planner.services.dto.NewGameDto;
 
 @RestController
 @RequestMapping("/api")
 public class GameRestController {
 
 	private GameService gameService;
-
-	private Logger logger = LoggerFactory.getLogger(GameRestController.class);
 
 	public GameRestController(GameService gameService) {
 		this.gameService = gameService;
@@ -51,16 +54,6 @@ public class GameRestController {
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		this.gameService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
-
-	@GetMapping("/prueba1")
-	public void prueba1() {
-		this.logger.debug("Mensaje de prueba");
-	}
-	
-	@GetMapping("/prueba2")
-	public ResponseEntity<Void> prueba2() {
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

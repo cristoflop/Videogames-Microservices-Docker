@@ -1,4 +1,4 @@
-package com.formation.videogames.planner.application.dto;
+package com.formation.videogames.planner.services.dto;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;

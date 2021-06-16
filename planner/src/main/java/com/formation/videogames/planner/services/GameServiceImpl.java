@@ -1,11 +1,11 @@
-package com.formation.videogames.planner.application;
+package com.formation.videogames.planner.services;
 
 import com.formation.videogames.planner.amqp.NewGameResponsePublisher;
-import com.formation.videogames.planner.application.dto.GameDto;
-import com.formation.videogames.planner.application.dto.NewGameDto;
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
 import com.formation.videogames.planner.exception.ResourceNotFoundException;
+import com.formation.videogames.planner.services.dto.GameDto;
+import com.formation.videogames.planner.services.dto.NewGameDto;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -71,6 +71,12 @@ public class GameServiceImpl implements GameService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data.name").is(name));
 		return this.mongoTemplate.find(query, Game.class).stream().map(this::mapToGameDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<GameDto> findByAttributeInData(String key, String value) {
+
+		return null;
 	}
 
 	private GameDto mapToGameDto(Game game) {
