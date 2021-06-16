@@ -57,7 +57,7 @@ public class GameServiceImpl implements GameService {
 		Game gameToSave = new Game(game.get());
 		
 		Game savedGame = this.gameRepository.save(gameToSave);
-		this.newGameResponsePublisher.sendMessage(this.mapToGameDto(savedGame));
+		// this.newGameResponsePublisher.sendMessage(this.mapToGameDto(savedGame));
 		return savedGame.getId();
 	}
 
