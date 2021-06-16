@@ -20,11 +20,11 @@ public class GameServiceImpl implements GameService {
 
 	private GameRepository gameRepository;
 
-	// TODO private NewGameResponsePublisher newGameResponsePublisher;
+	private NewGameResponsePublisher newGameResponsePublisher;
 
 	public GameServiceImpl(GameRepository gameRepository, NewGameResponsePublisher newGameResponsePublisher) {
 		this.gameRepository = gameRepository;
-		// TODO this.newGameResponsePublisher = newGameResponsePublisher;
+		this.newGameResponsePublisher = newGameResponsePublisher;
 	}
 
 	public GameRepository getGameRepository() {
@@ -52,7 +52,9 @@ public class GameServiceImpl implements GameService {
 		if (game != null) {
 			throw new ResourceAlreadyExistsException();
 		}
-		return this.gameRepository.save(this.mapToGame(newGame)).getId();
+		game = this.gameRepository.save(this.mapToGame(newGame));
+		this.newGameResponsePublisher.sendMessage(this.mapToGameDto(game));
+		return game.getId();
 	}
 
 	@Override

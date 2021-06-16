@@ -8,11 +8,11 @@ import com.formation.videogames.planner.services.dto.GameDto;
 @Component
 public class NewGameResponsePublisher {
 
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, Object> kafkaTemplate;
 
-	private static final String newGameResponseTopic = "new-game-response-topic";
-	
-	public NewGameResponsePublisher(KafkaTemplate kafkaTemplate) {
+	private final String newGameResponseTopic = "new-game-response-topic";
+
+	public NewGameResponsePublisher(KafkaTemplate<String, Object> kafkaTemplate) {
 		this.kafkaTemplate = kafkaTemplate;
 	}
 

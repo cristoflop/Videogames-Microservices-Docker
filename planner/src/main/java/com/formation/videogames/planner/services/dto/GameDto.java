@@ -51,4 +51,14 @@ public class GameDto {
 		this.tags = tags;
 	}
 
+	@Override
+	public String toString() {
+		return "{ id: " + id + ", " +
+				"{ name: " + name + ", " + 
+				"{ description: " + description + ", " + 
+				"{ tags: " + tags + " }";
+	}
+
+	
+	
 }
