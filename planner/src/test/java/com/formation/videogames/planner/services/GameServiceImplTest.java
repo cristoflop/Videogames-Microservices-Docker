@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,6 +20,7 @@ import com.formation.videogames.planner.services.dto.NewGameDto;
 import com.formation.videogames.planner.services.dto.NewGameDtoBuilder;
 
 @SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 class GameServiceImplTest {
 
 	@Autowired
@@ -49,14 +52,8 @@ class GameServiceImplTest {
 		NewGameDto newGame = new NewGameDtoBuilder().addAttribute("name", "Minecraft")
 				.addAttribute("description", "Juego de aventuras").build();
 
-		GameDto game = this.gameService.findByName("Minecraft");
-
-		assertEquals(null, game);
-
 		this.gameService.save(newGame);
-
 		List<GameDto> games = this.gameService.findByAttributeValueInData("name", "Minecraft");
-
 		assertEquals("Minecraft", games.get(0).getGameData().get("name"));
 
 	}
