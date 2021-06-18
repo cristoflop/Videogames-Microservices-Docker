@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.formation.videogames.planner.services.GameService;
 import com.formation.videogames.planner.services.dto.GameDto;
 import com.formation.videogames.planner.services.dto.NewGameDto;
@@ -41,7 +42,7 @@ public class GameRestController {
 	}
 
 	@PostMapping("/games")
-	public ResponseEntity<String> save(@RequestBody NewGameDto game) {
+	public ResponseEntity<String> save(@RequestBody NewGameDto game) throws JsonProcessingException {
 		String id = this.gameService.save(game);
 		return ResponseEntity.status(HttpStatus.CREATED).body(id);
 	}

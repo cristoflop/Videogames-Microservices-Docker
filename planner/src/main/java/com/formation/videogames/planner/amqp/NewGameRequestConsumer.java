@@ -6,17 +6,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.formation.videogames.planner.services.GameService;
+import com.formation.videogames.planner.services.dto.NewGameDto;
 
 @Component
 public class NewGameRequestConsumer {
-	
-	private Logger logger = LoggerFactory.getLogger(NewGameRequestConsumer.class);
 
-	@KafkaListener(topics = "messages")
-	public void received(ConsumerRecord<?, ?> message) {
-	
+	private final Logger logger = LoggerFactory.getLogger(NewGameRequestConsumer.class);
 
-		System.out.println("Message: " + message.value());
+	private ObjectMapper om;
+
+	private GameService gameService;
+
+	public NewGameRequestConsumer(ObjectMapper om, GameService gameService) {
+		this.om = om;
+		this.gameService = gameService;
+	}
+
+	@KafkaListener(topics = "new-game-request-topic")
+	public void consume(ConsumerRecord<?, ?> message) throws JsonProcessingException {
+		NewGameDto game = this.om.readValue(message.value().toString(), NewGameDto.class);
+		String gameId = this.gameService.save(game);
+		this.logger.info("Saved id: {}", gameId);
 	}
 
 }
