@@ -14,6 +14,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
 import com.formation.videogames.planner.exception.ResourceNotFoundException;
@@ -50,7 +51,7 @@ class GameServiceImplTest {
 	}
 
 	@Test
-	void testGivenGameNameWhenSearchForAnSpecificGameThenReturnTheGame() {
+	void testGivenGameNameWhenSearchForAnSpecificGameThenReturnTheGame() throws JsonProcessingException {
 		NewGameDto newGame = new NewGameDtoBuilder().setValues("Minecraft", "Juego de cubos").build();
 		this.gameService.save(newGame);
 		GameDto game = this.gameService.findByName("Minecraft");

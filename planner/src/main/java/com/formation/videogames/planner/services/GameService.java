@@ -2,6 +2,7 @@ package com.formation.videogames.planner.services;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.formation.videogames.planner.services.dto.GameDto;
 import com.formation.videogames.planner.services.dto.NewGameDto;
 
@@ -14,7 +15,7 @@ public interface GameService {
 
 	GameDto findOne(String id);
 
-	String save(NewGameDto game);
+	String save(NewGameDto game) throws JsonProcessingException;
 
 	void delete(String id);
 

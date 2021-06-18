@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.formation.videogames.planner.amqp.NewGameResponsePublisher;
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
@@ -47,7 +48,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public String save(NewGameDto newGame) {
+	public String save(NewGameDto newGame) throws JsonProcessingException {
 		Game game = this.gameRepository.findByName(newGame.getName()).orElse(null);
 		if (game != null) {
 			throw new ResourceAlreadyExistsException();
