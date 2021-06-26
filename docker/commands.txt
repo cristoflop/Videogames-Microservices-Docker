@@ -1,4 +1,4 @@
 Realizar desde la ruta de los módulos
 
-mvn compile jib:build -Dimage:cristoflop/videogames-planner:1.0
-mvn compile jib:build -Dimage:cristoflop/videogames-server:1.0
+mvn compile jib:build -Dimage=cristoflop/videogames-planner:1.0
+mvn compile jib:build -Dimage=cristoflop/videogames-server:1.0
