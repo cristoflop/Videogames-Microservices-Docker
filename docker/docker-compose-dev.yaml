@@ -2,16 +2,16 @@ version: '3.0'
 services:
   messagesNosql:
     image: mongo:4.2.12-bionic
-    expose:
-      - 27018
+    ports:
+      - 27019:27017
     environment:
       - MONGO_INITDB_DATABASE=messages
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
   videogamesNosql:
     image: mongo:4.2.12-bionic
-    expose:
-      - 27017
+    ports:
+      - 27018:27017
     environment:
       - MONGO_INITDB_DATABASE=videogames
       - MONGO_INITDB_ROOT_USERNAME=root
