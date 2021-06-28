@@ -2,19 +2,20 @@ package com.formation.videogames.planner.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.util.List;
+import java.util.Optional;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.ArgumentMatchers;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.formation.videogames.planner.amqp.NewGameResponsePublisher;
 import com.formation.videogames.planner.data.GameRepository;
 import com.formation.videogames.planner.domain.Game;
 import com.formation.videogames.planner.exception.ResourceNotFoundException;
@@ -26,40 +27,38 @@ import com.formation.videogames.planner.services.dto.NewGameDtoBuilder;
 @TestInstance(Lifecycle.PER_CLASS)
 class GameServiceImplTest {
 
-	@Autowired
 	private GameServiceImpl gameService;
 
-	@Autowired
 	private GameRepository gameRepository;
 
-	private List<Game> backup;
+	private NewGameResponsePublisher publisher;
 
 	@BeforeAll
 	void setUp() {
-		this.backup = this.gameRepository.findAll();
-	}
-
-	@AfterAll
-	void end() {
-		this.gameRepository.deleteAll();
-		this.gameRepository.saveAll(this.backup);
-	}
-
-	@BeforeEach
-	void eraseContent() {
-		this.gameRepository.deleteAll();
+		this.gameRepository = mock(GameRepository.class);
+		this.publisher = mock(NewGameResponsePublisher.class);
+		this.gameService = new GameServiceImpl(gameRepository, publisher);
 	}
 
 	@Test
 	void testGivenGameNameWhenSearchForAnSpecificGameThenReturnTheGame() throws JsonProcessingException {
 		NewGameDto newGame = new NewGameDtoBuilder().setValues("Minecraft", "Juego de cubos").build();
+		Game game = new Game("Minecraft", "", null);
+
+		when(gameRepository.save(ArgumentMatchers.any()))
+				.thenReturn(game);
+		when(gameRepository.findByName(ArgumentMatchers.any()))
+				.thenReturn(Optional.empty())
+				.thenReturn(Optional.of(game));
+
 		this.gameService.save(newGame);
-		GameDto game = this.gameService.findByName("Minecraft");
-		assertEquals("Minecraft", game.getName());
+		GameDto gameDto = this.gameService.findByName("Minecraft");
+		assertEquals("Minecraft", gameDto.getName());
 	}
 
 	@Test
 	void testGivenGameNameWhenSearchForAnSpecificGameThenEspectExceptionIfNotExist() {
+		when(gameRepository.findByName(ArgumentMatchers.any())).thenReturn(Optional.empty());
 		assertThrows(ResourceNotFoundException.class, () -> this.gameService.findByName("Minecraft"));
 	}
 

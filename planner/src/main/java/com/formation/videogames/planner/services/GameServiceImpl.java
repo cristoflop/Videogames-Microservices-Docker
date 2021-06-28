@@ -28,14 +28,6 @@ public class GameServiceImpl implements GameService {
 		this.newGameResponsePublisher = newGameResponsePublisher;
 	}
 
-	public GameRepository getGameRepository() {
-		return gameRepository;
-	}
-
-	public void setGameRepository(GameRepository gameRepository) {
-		this.gameRepository = gameRepository;
-	}
-
 	@Override
 	public List<GameDto> findAll() {
 		return this.gameRepository.findAll().stream().map(this::mapToGameDto).collect(Collectors.toList());
