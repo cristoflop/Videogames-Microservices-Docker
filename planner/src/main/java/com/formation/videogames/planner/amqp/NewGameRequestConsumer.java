@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.formation.videogames.planner.exception.ResourceAlreadyExistsException;
 import com.formation.videogames.planner.services.GameService;
 import com.formation.videogames.planner.services.dto.NewGameDto;
 
@@ -28,8 +29,12 @@ public class NewGameRequestConsumer {
 	@KafkaListener(topics = "new-game-request-topic")
 	public void consume(ConsumerRecord<?, ?> message) throws JsonProcessingException {
 		NewGameDto game = this.om.readValue(message.value().toString(), NewGameDto.class);
-		String gameId = this.gameService.save(game);
-		this.logger.info("Saved id: {}", gameId);
+		try {
+			String gameId = this.gameService.save(game);
+			this.logger.info("Saved id: {}", gameId);
+		} catch (ResourceAlreadyExistsException exc) {
+			this.logger.info("Game already exists in database");
+		}
 	}
 
 }
