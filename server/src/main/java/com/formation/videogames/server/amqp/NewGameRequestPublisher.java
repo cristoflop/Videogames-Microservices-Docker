@@ -16,8 +16,9 @@ public class NewGameRequestPublisher {
 
 	private ObjectMapper om;
 
-	public NewGameRequestPublisher(KafkaTemplate<String, String> kafkaTemplate) {
+	public NewGameRequestPublisher(KafkaTemplate<String, String> kafkaTemplate, ObjectMapper om) {
 		this.kafkaTemplate = kafkaTemplate;
+		this.om = om;
 	}
 
 	public void sendMessage(NewGameDto game) throws JsonProcessingException {

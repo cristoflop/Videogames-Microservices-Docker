@@ -20,7 +20,8 @@ public class NewGameResponseConsumer {
 
 	private MessageService messageService;
 
-	public NewGameResponseConsumer(ObjectMapper om) {
+	public NewGameResponseConsumer(MessageService messageService, ObjectMapper om) {
+		this.messageService = messageService;
 		this.om = om;
 	}
 

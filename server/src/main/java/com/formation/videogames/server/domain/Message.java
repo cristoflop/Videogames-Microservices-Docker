@@ -22,7 +22,6 @@ public class Message {
 	private Date date;
 
 	public Message(String gameId, Event event, Date date) {
-		super();
 		this.gameId = gameId;
 		this.event = event;
 		this.date = date;
