@@ -1,14 +1,14 @@
-# KafkaPractica
+# Videogames Service
 
-Proyecto de microservicios usando spring boot, mongodb, apache kafka, y despliegue en contenedores con docker
+Proyecto de microservicios usando spring boot, mongodb, apache kafka, y despliegue en contenedores con docker.
 
-## Necesario tener instalado:
+## Entornos de ejecución
 
-`Kafka server`
-`Maven`
-`Java 11`
-`MongoDB server`
-`MySql server`
+---
+
+### Entorno local sin docker:
+
+Necesario `Kafka server` `Maven` `Java 11` `MongoDB server`
 
 #### Para arrancar zookeeper y kafka server (desde cmd en la carpeta de kafka)
 
@@ -22,10 +22,20 @@ Proyecto de microservicios usando spring boot, mongodb, apache kafka, y desplieg
 
     bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --if-not-exists --topic new-game-response-topic
 
-## Autores
-
 ---
 
-- [@danielDiz](https://github.com/danielDiz)
-- [@davidgarciamontoto](https://github.com/davidgarciamontoto)
-- [@cristoflop](https://github.com/cristoflop)
+### Entorno local con docker
+
+Necesario `Docker`
+
+#### Para arrancar los servicios de kafka y las bases de datos mongo (desde cmd en la carpeta del proyecto)
+
+	 docker-compose -f docker\docker-compose-dev.yaml up --build
+	 
+#### Para parar los contenedores cerrar el cmd, y para eliminarlos:
+
+	 docker-compose -f docker\docker-compose-dev.yaml down
+	 
+### Despliegue de los contenedores (desde cmd en la carpeta del proyecto)
+
+	docker-compose -f docker\docker-compose-prod-<version>.yaml up --build

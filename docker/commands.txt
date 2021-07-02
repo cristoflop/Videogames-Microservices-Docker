@@ -1,4 +1,8 @@
-Realizar desde la ruta de los módulos
+Realizar desde la ruta de los módulos para crear y subir las imagenes a dockerhub
 
-mvn compile jib:build -Dimage=cristoflop/videogames-planner:1.0
-mvn compile jib:build -Dimage=cristoflop/videogames-server:1.0
+mvn compile jib:build -Dimage=cristoflop/videogames-planner:<version>
+mvn compile jib:build -Dimage=cristoflop/videogames-server:<version>
+
+--- Version inicial de microservicios --- 1.0
+
+--- A�adido swagger a los microservicios --- 1.1.0
